@@ -13,7 +13,13 @@ const UserProfilePage = () => {
     return <span>Unable to load user profile</span>;
   }
 
-  return <UserProfileForm onSave={updateUser} isLoading={isUpdateLoading} />;
+  return (
+    <UserProfileForm
+      currentUser={currentUser}
+      onSave={updateUser}
+      isLoading={isUpdateLoading}
+    />
+  );
 };
 
 export default UserProfilePage;

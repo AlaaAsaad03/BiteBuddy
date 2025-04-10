@@ -11,8 +11,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
+import { User } from "@/types";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().optional(),
@@ -22,22 +24,31 @@ const formSchema = z.object({
   country: z.string().min(1, "Country is required"),
 });
 
-// Export the schema as a TypeScript type
-// This will allow you to use the schema in your TypeScript code
-type UserFormData = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
+  currentUser: User;
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  title?: string;
+  buttonText?: string;
 };
 
-const UserProfileForm = ({ onSave, isLoading }: Props) => {
-  // Initialize the form with the schema and resolver
-  // This will allow you to use the schema for validation in your form
+const UserProfileForm = ({
+  onSave,
+  isLoading,
+  currentUser,
+  title = "User Profile",
+  buttonText = "Submit",
+}: Props) => {
   const form = useForm<UserFormData>({
-    // handle form submission and validation
     resolver: zodResolver(formSchema),
+    defaultValues: currentUser,
   });
+
+  useEffect(() => {
+    form.reset(currentUser);
+  }, [currentUser, form]);
 
   return (
     <Form {...form}>
@@ -46,7 +57,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
         className="space-y-4 bg-gray-50 rounded-lg md:p-10"
       >
         <div>
-          <h2 className="text-2xl font-bold">User Profile Form</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
           <FormDescription>
             View and change your profile information here
           </FormDescription>
@@ -63,6 +74,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="name"
@@ -76,6 +88,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <div className="flex flex-col md:flex-row gap-4">
           <FormField
             control={form.control}
@@ -89,7 +102,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
                 <FormMessage />
               </FormItem>
             )}
-          />{" "}
+          />
           <FormField
             control={form.control}
             name="city"
@@ -121,7 +134,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
           <LoadingButton />
         ) : (
           <Button type="submit" className="bg-orange-500">
-            Submit{" "}
+            {buttonText}
           </Button>
         )}
       </form>
