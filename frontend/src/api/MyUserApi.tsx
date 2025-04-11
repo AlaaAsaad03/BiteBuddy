@@ -90,7 +90,6 @@ export const useUpdateMyUser = () => {
 
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
     const accessToken = await getAccessTokenSilently();
-    console.log(JSON.parse(atob(accessToken.split(".")[1])));
 
     const response = await fetch(`${API_BASE_URL}/api/user`, {
       method: "PUT",
