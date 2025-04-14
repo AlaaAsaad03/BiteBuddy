@@ -11,7 +11,7 @@ export const useGetMyRestaurant = () => {
   const getMyRestaurantRequest = async (): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/myrestaurant`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -40,7 +40,7 @@ export const useCreateMyRestaurant = () => {
   ): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/myrestaurant`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -81,7 +81,7 @@ export const useUpdateMyRestaurant = () => {
   ): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/myrestaurant`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -120,7 +120,7 @@ export const useGetMyRestaurantOrders = () => {
   const getMyRestaurantOrdersRequest = async (): Promise<Order[]> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant/order`, {
+    const response = await fetch(`${API_BASE_URL}/api/myrestaurant/order`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export const useUpdateMyRestaurantOrder = () => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(
-      `${API_BASE_URL}/api/my/restaurant/order/${updateStatusOrderRequest.orderId}/status`,
+      `${API_BASE_URL}/api/myrestaurant/order/${updateStatusOrderRequest.orderId}/status`,
       {
         method: "PATCH",
         headers: {
