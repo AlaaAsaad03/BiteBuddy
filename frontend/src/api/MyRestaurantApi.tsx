@@ -10,25 +10,24 @@ export const useGetMyRestaurant = () => {
 
   const getMyRestaurantRequest = async (): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
-
     const response = await fetch(`${API_BASE_URL}/api/myrestaurant`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
     });
-
     if (!response.ok) {
-      throw new Error("Failed to get restaurant");
+      throw new Error("Failed to fetch restaurant");
     }
     return response.json();
   };
-
+  // used useQuery to fetch the restaurant data
+  // and cache it for 5 minutes
   const { data: restaurant, isLoading } = useQuery(
     "fetchMyRestaurant",
     getMyRestaurantRequest
   );
-
   return { restaurant, isLoading };
 };
 
