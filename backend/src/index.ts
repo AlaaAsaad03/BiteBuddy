@@ -1,11 +1,16 @@
-import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
+import multer from "multer";
+import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoute";
-import multer from "multer";
+import express, { Request, Response } from "express";
 import MyRestaurantRoute from "./routes/MyRestaurantRoute";
-import dotenv from 'dotenv';
+import RestaurantRoute from "./routes/RestaurantRoute";
+
+
+
+
 dotenv.config();
 console.log("Uploadcare key:", process.env.UPLOADCARE_PUBLIC_KEY);
 
@@ -28,7 +33,11 @@ app.get("/health", async (req: Request, res: Response) => {
 });
 
 app.use("/api/user", myUserRoute);
-app.use("/api/myrestaurant", MyRestaurantRoute)
+app.use("/api/myrestaurant", MyRestaurantRoute);
+app.use("/api/restaurant", RestaurantRoute);
+
+
+
 app.listen(7000, () => {
   console.log("server started on localhost:7000");
 });
