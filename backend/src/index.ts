@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoute";
 import express, { Request, Response } from "express";
+import OrderRoute from "./routes/OrderRoute";
 import MyRestaurantRoute from "./routes/MyRestaurantRoute";
 import RestaurantRoute from "./routes/RestaurantRoute";
-
 
 
 
@@ -35,6 +35,7 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/api/user", myUserRoute);
 app.use("/api/myrestaurant", MyRestaurantRoute);
 app.use("/api/restaurant", RestaurantRoute);
+app.use("/api/order", OrderRoute)
 
 
 
